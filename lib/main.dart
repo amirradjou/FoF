@@ -11,7 +11,15 @@ import 'package:flutter_app/DataSearch.dart';
 import 'package:flutter_app/MyHome.dart';
 import 'FofBottomNavigator.dart';
 
+
+import 'constants/constants.dart';
+import 'ui/signin.dart';
+import 'ui/signup.dart';
+import 'ui/splashscreen.dart';
+
+
 void main() => runApp(Fof());
+String userToken = '';
 
 class Fof extends StatefulWidget {
   @override
@@ -23,9 +31,17 @@ class _FofState extends State<Fof> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: MyHome()
-    );
+    if(userToken!=null){
+      return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: SignInPage()
+      );
+    }
+    else{
+      return MaterialApp(
+          debugShowCheckedModeBanner: false,
+        home: SignUpScreen(),
+      );
+    }
   }
 }

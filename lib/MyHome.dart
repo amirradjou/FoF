@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 
 import 'AddContact.dart';
 import 'ContactView.dart';
@@ -65,5 +66,11 @@ class MyHome extends StatelessWidget {
           ),
         )
     );
+  }
+
+  void fetchItems() async{
+    var url = '';
+    Response response = await get(url);
+    
   }
 }
