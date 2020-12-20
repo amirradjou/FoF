@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/constants/constants.dart';
+import 'package:http/http.dart';
 import 'widgets/custom_shape.dart';
 import 'widgets/customappbar.dart';
 import 'widgets/responsive_ui.dart';
@@ -19,6 +20,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
   double _pixelRatio;
   bool _large;
   bool _medium;
+
+  TextEditingController firstNameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
+  TextEditingController cellPhoneController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController jobController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -160,6 +168,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       keyboardType: TextInputType.text,
       icon: Icons.person,
       hint: "First Name",
+      textEditingController: firstNameController,
     );
   }
 
@@ -168,6 +177,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       keyboardType: TextInputType.text,
       icon: Icons.person,
       hint: "Last Name",
+      textEditingController: lastNameController,
     );
   }
 
@@ -176,6 +186,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       keyboardType: TextInputType.emailAddress,
       icon: Icons.email,
       hint: "Email ID",
+      textEditingController: emailController,
     );
   }
 
@@ -184,6 +195,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       keyboardType: TextInputType.number,
       icon: Icons.phone,
       hint: "Mobile Number",
+      textEditingController: cellPhoneController,
     );
   }
 
@@ -193,6 +205,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       obscureText: true,
       icon: Icons.lock,
       hint: "Password",
+      textEditingController: passwordController,
     );
   }
 
@@ -201,6 +214,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       keyboardType: TextInputType.text,
       icon: Icons.work,
       hint: "Job",
+      textEditingController: jobController,
     );
   }
 
@@ -232,7 +246,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
       elevation: 0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
       onPressed: () {
-        print("Routing to your account");
+        _makePostRequest(
+            firstNameController.text,
+            lastNameController.text,
+            cellPhoneController.text,
+            passwordController.text,
+            emailController.text,
+            jobController.text
+        );
+        Navigator.of(context).pop(SIGN_IN);
       },
       textColor: Colors.white,
       padding: EdgeInsets.all(0.0),
@@ -325,3 +347,38 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 }
+
+
+_makePostRequest(firstName,lastName,cellPhone,password,email,job) async {
+  // set up POST request arguments
+  String url = 'https://fof.cleverapps.io/register';
+  Map<String, String> headers = {"Content-type": "application/json"};
+  String json = '{'
+      '"first_name": "$firstName",'
+      '"last_name": "$lastName",'
+      '"cellphone": "$cellPhone",'
+      '"password":"$password",'
+      '"birth_day": 22,'
+      '"birth_month": 2,'
+      '"email": "$email"'
+      ',"job": "$job",'
+      '"interests": "cs music soccer",'
+      '"city_name": "tehran"}';
+  // make POST request
+  Response response = await post(url,headers: headers ,body: json);
+  // check the status code for the result
+  int statusCode = response.statusCode;
+  // this API passes back the id of the new item added to the body
+  String body = response.body;
+  print(response.body);
+  print(statusCode);
+  print("---------------------------------------------------");
+  print(firstName);
+  print(lastName);
+  print(cellPhone);
+  print(email);
+  print(password);
+  print(job);
+  print("---------------------------------------------------");
+}
+

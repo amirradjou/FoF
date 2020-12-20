@@ -31,7 +31,7 @@ class _FofState extends State<Fof> {
 
   @override
   Widget build(BuildContext context) {
-    if(userToken!=null){
+    if(userToken==''){
       return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: SignInPage()
@@ -40,7 +40,7 @@ class _FofState extends State<Fof> {
     else{
       return MaterialApp(
           debugShowCheckedModeBanner: false,
-        home: SignUpScreen(),
+        home: MyHome(),
       );
     }
   }
