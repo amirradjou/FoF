@@ -350,7 +350,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
 
 _makePostRequest(firstName,lastName,cellPhone,password,email,job) async {
-  // set up POST request arguments
   String url = 'https://fof.cleverapps.io/register';
   Map<String, String> headers = {"Content-type": "application/json"};
   String json = '{'
@@ -364,21 +363,20 @@ _makePostRequest(firstName,lastName,cellPhone,password,email,job) async {
       ',"job": "$job",'
       '"interests": "cs music soccer",'
       '"city_name": "tehran"}';
-  // make POST request
   Response response = await post(url,headers: headers ,body: json);
-  // check the status code for the result
   int statusCode = response.statusCode;
-  // this API passes back the id of the new item added to the body
   String body = response.body;
   print(response.body);
-  print(statusCode);
-  print("---------------------------------------------------");
-  print(firstName);
-  print(lastName);
-  print(cellPhone);
-  print(email);
-  print(password);
-  print(job);
-  print("---------------------------------------------------");
+
+//  print(statusCode);
+//  print("---------------------------------------------------");
+//  print(firstName);
+//  print(lastName);
+//  print(cellPhone);
+//  print(email);
+//  print(password);
+//  print(job);
+//  print("---------------------------------------------------");
+
 }
 

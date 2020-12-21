@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/constants/constants.dart';
 import 'package:flutter_app/ui/signup.dart';
+import 'package:http/http.dart';
 import 'widgets/custom_shape.dart';
 import 'widgets/responsive_ui.dart';
 import 'widgets/textformfield.dart';
@@ -215,9 +216,7 @@ class _SignInScreenState extends State<SignInScreen> {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
       onPressed: () {
           print("Routing to your account");
-          Scaffold
-              .of(context)
-              .showSnackBar(SnackBar(content: Text('Login Successful')));
+          Scaffold.of(context).showSnackBar(SnackBar(content: Text('Login Successful')));
 
       },
       textColor: Colors.white,
@@ -265,5 +264,18 @@ class _SignInScreenState extends State<SignInScreen> {
       ),
     );
   }
+
+}
+
+
+_makePostRequest(cellPhone,password) async {
+  String url = 'https://fof.cleverapps.io/register';
+  Map<String, String> headers = {"Content-type": "application/json"};
+  String json = '{"cellphone": "$cellPhone", "password":"$password"}';
+  Response response = await post(url,headers: headers ,body: json);
+  int statusCode = response.statusCode;
+  String body = response.body;
+  print(response.body);
+  print("-------------------------------");
 
 }
