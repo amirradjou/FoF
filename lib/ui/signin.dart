@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_app/constants/constants.dart';
+import 'package:flutter_app/MyHome.dart';
+import 'package:flutter_app/main.dart';
 import 'package:flutter_app/ui/signup.dart';
 import 'package:http/http.dart';
 import 'widgets/custom_shape.dart';
@@ -28,7 +31,7 @@ class _SignInScreenState extends State<SignInScreen> {
   double _pixelRatio;
   bool _large;
   bool _medium;
-  TextEditingController emailController = TextEditingController();
+  TextEditingController cellPhoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   GlobalKey<FormState> _key = GlobalKey();
 
@@ -165,7 +168,7 @@ class _SignInScreenState extends State<SignInScreen> {
   Widget phoneTextFormField() {
     return CustomTextField(
       keyboardType: TextInputType.phone,
-      textEditingController: emailController,
+      textEditingController: cellPhoneController,
       icon: Icons.phone,
       hint: "Number",
     );
@@ -216,7 +219,9 @@ class _SignInScreenState extends State<SignInScreen> {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
       onPressed: () {
           print("Routing to your account");
+          _makePostRequest(cellPhoneController.text, passwordController.text);
           Scaffold.of(context).showSnackBar(SnackBar(content: Text('Login Successful')));
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyHome()));
 
       },
       textColor: Colors.white,
@@ -269,13 +274,15 @@ class _SignInScreenState extends State<SignInScreen> {
 
 
 _makePostRequest(cellPhone,password) async {
-  String url = 'https://fof.cleverapps.io/register';
+  String url = 'https://fof.cleverapps.io/login';
   Map<String, String> headers = {"Content-type": "application/json"};
-  String json = '{"cellphone": "$cellPhone", "password":"$password"}';
+  String json = '{"cellphone": "$cellPhone","password":"$password"}';
   Response response = await post(url,headers: headers ,body: json);
   int statusCode = response.statusCode;
   String body = response.body;
-  print(response.body);
+  var decodedJson = jsonDecode(body);
+  print(decodedJson['token']);
+  userToken = decodedJson['token'];
+  print(statusCode);
   print("-------------------------------");
-
 }

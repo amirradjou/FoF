@@ -18,8 +18,8 @@ import 'ui/signup.dart';
 import 'ui/splashscreen.dart';
 
 
-void main() => runApp(Fof());
 String userToken = '';
+void main() => runApp(Fof());
 
 class Fof extends StatefulWidget {
   @override
