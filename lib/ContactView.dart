@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'MyHome.dart';
 
+// ignore: must_be_immutable
 class ContactView extends StatelessWidget {
   String phoneNumber;
   String contactName;
@@ -96,10 +96,6 @@ class ContactView extends StatelessWidget {
                             new Padding(padding: EdgeInsets.only(top: 80.0)),
                             ElevatedButton(
                               onPressed: () {
-                                MyHome.contactNames.remove(contactName);
-                                MyHome.contactNumbers.remove(phoneNumber);
-                                MyHome.contactNames.add(nameController.text);
-                                MyHome.contactNumbers.add(phoneController.text);
                                 print(nameController.text);
                                 Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyHome()));
                               },

@@ -283,6 +283,7 @@ _makePostRequest(cellPhone,password) async {
   var decodedJson = jsonDecode(body);
   print(decodedJson['token']);
   userToken = decodedJson['token'];
+  //loginToken.write(key: 'login', value: decodedJson['token']);
   print(statusCode);
   print("-------------------------------");
 }

@@ -2,23 +2,18 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:english_words/english_words.dart';
-import 'package:flutter_app/AddContact.dart';
-import 'package:flutter_app/DataSearch.dart';
 import 'package:flutter_app/MyHome.dart';
-import 'FofBottomNavigator.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 
-import 'constants/constants.dart';
 import 'ui/signin.dart';
-import 'ui/signup.dart';
-import 'ui/splashscreen.dart';
-
 
 String userToken = '';
+final loginToken = new FlutterSecureStorage();
+//final String mySecureKey = getSecureKey() as String;
+
 void main() => runApp(Fof());
 
 class Fof extends StatefulWidget {
@@ -27,11 +22,19 @@ class Fof extends StatefulWidget {
 }
 
 class _FofState extends State<Fof> {
-
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    if(userToken==''){
+    print('*-*--*-**--**--*-*-*-*-*-*');
+//    print(mySecureKey);
+    print(userToken);
+    print('*-*--*-**--**--*-*-*-*-*-*');
+    if(/*mySecureKey == null*/ userToken == ''){
       return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: SignInPage()
@@ -45,3 +48,11 @@ class _FofState extends State<Fof> {
     }
   }
 }
+
+//Future<void> getSecureKey() async {
+//  final String mySecureKey = await loginToken.read(key: 'login');
+//  print('in function***************************************');
+//  print(mySecureKey);
+
+//  return mySecureKey;
+//}

@@ -24,6 +24,14 @@ dependencies:
   flutter:
     sdk: flutter
   http: 0.12.2
+  flutter_secure_storage: ^3.3.5
+  flutter_launcher_icons: ^0.8.1
+  typicons_flutter: ^0.4.2
+  url_launcher: ^5.7.10
+
+flutter_icons:
+  image_path: "assets/images/fof.png"
+  android: true
 
 
   # The following adds the Cupertino Icons font to your application.
