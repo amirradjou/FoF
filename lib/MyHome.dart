@@ -26,7 +26,7 @@ class MyHome extends StatelessWidget {
           leading: Icon(
             Icons.arrow_back,
             color: Colors.white,),
-          backgroundColor: Colors.green,
+          backgroundColor: Colors.orange[200],
           actions: [
             IconButton(
               icon: Icon(Icons.refresh,color: Colors.white,), onPressed: (){
@@ -38,7 +38,7 @@ class MyHome extends StatelessWidget {
           ],
         ),
         bottomNavigationBar: FofBottomNavigator(),
-        floatingActionButton: FloatingActionButton(child: Icon(Icons.add), backgroundColor: Colors.green,onPressed: () {
+        floatingActionButton: FloatingActionButton(child: Icon(Icons.add), backgroundColor: Colors.redAccent,onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (context) => AddContact()));
         }),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

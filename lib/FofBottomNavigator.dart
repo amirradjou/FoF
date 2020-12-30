@@ -37,7 +37,7 @@ class FofBottomNavigator extends StatelessWidget {
           ],
         ),
       ),
-      color: Colors.green.shade300,
+      color: Colors.orange[200],
       shape: CircularNotchedRectangle(),
       notchMargin: 5,
     );
