@@ -26,6 +26,7 @@ class _FofState extends State<Fof> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    MyHome().fetchItems();
   }
 
   @override

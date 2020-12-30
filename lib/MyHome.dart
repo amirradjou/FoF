@@ -16,8 +16,6 @@ class MyHome extends StatelessWidget {
 
   static List<Contacts> _contacts = [];
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,15 +29,17 @@ class MyHome extends StatelessWidget {
           backgroundColor: Colors.green,
           actions: [
             IconButton(
-              icon: Icon(Icons.add,color: Colors.white,), onPressed: (){
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AddContact()));
+              icon: Icon(Icons.refresh,color: Colors.white,), onPressed: (){
+                fetchItems();
+                print(_contacts);
+              (context as Element).reassemble();
             },
             )
           ],
         ),
         bottomNavigationBar: FofBottomNavigator(),
-        floatingActionButton: FloatingActionButton(child: Icon(Icons.search), backgroundColor: Colors.green,onPressed: () {
-          showSearch(context: context, delegate: DataSearch());
+        floatingActionButton: FloatingActionButton(child: Icon(Icons.add), backgroundColor: Colors.green,onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => AddContact()));
         }),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         body: Container(
@@ -58,7 +58,18 @@ class MyHome extends StatelessWidget {
                           subtitle: Text('${_contacts[index].cellPhone}'),
                           leading: CircleAvatar(),
                           onTap: (){
-                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ContactView(_contacts[index].firstName, _contacts[index].cellPhone)));
+                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>
+                                ContactView(
+                                    _contacts[index].firstName,
+                                    _contacts[index].cellPhone,
+                                    _contacts[index].lastName,
+                                    _contacts[index].email,
+                                    _contacts[index].job,
+                                    _contacts[index].intrests,
+                                    _contacts[index].cityName,
+                                    _contacts[index].temperature,
+                                    _contacts[index].weather_descriptions
+                                )));
                           },
 
                         );
@@ -75,12 +86,15 @@ class MyHome extends StatelessWidget {
     var url = 'https://fof.cleverapps.io/contact';
     Map<String, String> headers = {"Content-type": "application/json",  "authorization": userToken};
     Response response = await get(url, headers: headers);
-    setState(){
       var contactJson = json.decode(response.body);
       for(var c in contactJson){
-        var contactItem = Contacts(c['id'], c['first_name'], c['last_name'], c['cellphone'], c['email'], c['job'], c['intrests'], c['city_name']);
+        var contactItem = Contacts(c['id'], c['first_name'], c['last_name'], c['cellphone'], c['email'], c['job'],
+            c['intrests'], c['city_name'], c['geo_info']['current']['temperature'], c['geo_info']['current']['weather_descriptions']);
+        var weather = c['geo_info']['current'];
+        print(weather);
         _contacts.add(contactItem);
+        print('amirrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrima');
       }
-    }
+
   }
 }

@@ -8,7 +8,7 @@ class ContactView extends StatelessWidget {
   String contactName;
 
 
-  ContactView(String contactName, String phoneNumber){
+  ContactView(String contactName, String phoneNumber, String lastName, String email, String job, String intrests, String cityName, int temperature, String weather_descriptions){
     this.phoneNumber = phoneNumber;
     this.contactName = contactName;
   }
