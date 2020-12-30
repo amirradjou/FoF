@@ -87,11 +87,12 @@ class MyHome extends StatelessWidget {
     Map<String, String> headers = {"Content-type": "application/json",  "authorization": userToken};
     Response response = await get(url, headers: headers);
       var contactJson = json.decode(response.body);
+      _contacts = [];
       for(var c in contactJson){
         var contactItem = Contacts(c['id'], c['first_name'], c['last_name'], c['cellphone'], c['email'], c['job'],
             c['intrests'], c['city_name'], c['geo_info']['current']['temperature'], c['geo_info']['current']['weather_descriptions']);
         var weather = c['geo_info']['current'];
-        print(weather);
+        print(c['geo_info']['current']['weather_descriptions'].toString());
         _contacts.add(contactItem);
         print('amirrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrima');
       }

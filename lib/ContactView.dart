@@ -1,112 +1,243 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'MyHome.dart';
+import 'package:flutter_app/ui/widgets/customappbar.dart';
+import 'package:flutter_app/ui/widgets/responsive_ui.dart';
+import 'package:flutter_app/ui/widgets/textformfield.dart';
 
 // ignore: must_be_immutable
 class ContactView extends StatelessWidget {
+  String firstName;
   String phoneNumber;
   String contactName;
+  String lastName;
+  String email;
+  String job;
+  String intrests;
+  String cityName;
+  int tempreature;
+  List<dynamic> weatherDescription;
 
 
-  ContactView(String contactName, String phoneNumber, String lastName, String email, String job, String intrests, String cityName, int temperature, String weather_descriptions){
+  ContactView(String firstName, String cellPhone, String lastName,
+      String email, String job, String intrests, String cityName,
+      int temperature, List<dynamic> weatherDescriptions) {
+
+    this.firstName = firstName;
     this.phoneNumber = phoneNumber;
-    this.contactName = contactName;
+    this.lastName = lastName;
+    this.email = email;
+    this.job = job;
+    this.intrests = intrests;
+    this.cityName = cityName;
+    this.tempreature = temperature;
+    this.weatherDescription = weatherDescriptions;
+
   }
+
+  bool checkBoxValue = false;
+  double _height;
+  double _width;
+  double _pixelRatio;
+  bool _large;
+  bool _medium;
 
 
 
   @override
   Widget build(BuildContext context) {
 
-    TextEditingController nameController = TextEditingController(text: contactName);
-    TextEditingController phoneController = TextEditingController(text: phoneNumber);
 
-    return Scaffold(
-        appBar: AppBar(
-          title: Text('FOF'),
-          centerTitle: true,
-          leading:IconButton(
-            icon: Icon(Icons.arrow_back_rounded,color: Colors.white,), onPressed: (){
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyHome()));
-          },
+    _height = MediaQuery
+        .of(context)
+        .size
+        .height;
+    _width = MediaQuery
+        .of(context)
+        .size
+        .width;
+    _pixelRatio = MediaQuery
+        .of(context)
+        .devicePixelRatio;
+    _large = ResponsiveWidget.isScreenLarge(_width, _pixelRatio);
+    _medium = ResponsiveWidget.isScreenMedium(_width, _pixelRatio);
+
+    return Material(
+      child: Scaffold(
+        body: Container(
+          height: _height,
+          width: _width,
+          margin: EdgeInsets.only(bottom: 5),
+          child: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                Opacity(opacity: 0.50, child: CustomAppBar()),
+                form(),
+                SizedBox(height: _height / 35,),
+                button(),
+                //signInTextRow(),
+              ],
+            ),
           ),
-          backgroundColor: Colors.green,
         ),
-        body: new Material(
-            child: new Container (
-                padding: const EdgeInsets.all(30.0),
-                color: Colors.white,
-                child: new Container(
-                  child: new Center(
-                      child: new Column(
-                          children : [
-                            new Padding(padding: EdgeInsets.only(top: 50.0)),
-                            new Text('Edit Contact',
-                              style: new TextStyle(color: Colors.black, fontSize: 25.0,),),
-                            new Padding(padding: EdgeInsets.only(top: 50.0)),
-                            new TextFormField(
-                              controller: nameController,
-                              decoration: new InputDecoration(
-                                labelText: "Enter Name",
-                                fillColor: Colors.white,
-                                border: new OutlineInputBorder(
-                                  borderRadius: new BorderRadius.circular(25.0),
-                                  borderSide: new BorderSide(
-                                  ),
-                                ),
-                                //fillColor: Colors.green
-                              ),
-                              validator: (val) {
-                                if(val.length==0) {
-                                  return "Name cannot be empty";
-                                }else{
-                                  return null;
-                                }
-                              },
-                              keyboardType: TextInputType.name,
-                              style: new TextStyle(
-                                fontFamily: "Poppins",
-                              ),
-                            ),
-                            new Padding(padding: EdgeInsets.only(top: 10.0)),
-                            new TextFormField(
-                              controller: phoneController,
-                              decoration: new InputDecoration(
-                                labelText: "Enter Number",
-                                fillColor: Colors.white,
-                                border: new OutlineInputBorder(
-                                  borderRadius: new BorderRadius.circular(25.0),
-                                  borderSide: new BorderSide(
-                                  ),
-                                ),
-                                //fillColor: Colors.green
-                              ),
-                              validator: (val) {
-                                if(val.length==0) {
-                                  return "Number cannot be empty";
-                                }else{
-                                  return null;
-                                }
-                              },
-                              keyboardType: TextInputType.phone,
-                              style: new TextStyle(
-                                fontFamily: "Poppins",
-                              ),
-                            ),
-                            new Padding(padding: EdgeInsets.only(top: 80.0)),
-                            ElevatedButton(
-                              onPressed: () {
-                                print(nameController.text);
-                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyHome()));
-                              },
-                              child: Text('Save'),
-                            )
-                          ]
-                      )
-                  ),
-                )
-            )
-        )
+      ),
+    );
+  }
+
+
+  Widget form() {
+    return Container(
+      margin: EdgeInsets.only(
+          left: _width / 12.0,
+          right: _width / 12.0,
+          top: _height / 20.0),
+      child: Form(
+        child: Column(
+          children: <Widget>[
+            firstNameTextFormField(),
+            SizedBox(height: _height / 60.0),
+            lastNameTextFormField(),
+            SizedBox(height: _height / 60.0),
+            emailTextFormField(),
+            SizedBox(height: _height / 60.0),
+            phoneTextFormField(),
+            SizedBox(height: _height / 60.0),
+            cityNameTextFormField(),
+            SizedBox(height: _height / 60.0),
+            jobTextFormField(),
+            SizedBox(height: _height / 60.0),
+            intrestTextFormField(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget firstNameTextFormField() {
+    TextEditingController firstNameController = TextEditingController(text: firstName);
+    return CustomTextField(
+      keyboardType: TextInputType.text,
+      icon: Icons.person,
+      hint: "First Name",
+      textEditingController: firstNameController,
+    );
+  }
+
+  Widget lastNameTextFormField() {
+    TextEditingController lastNameController = TextEditingController(text: lastName);
+    return CustomTextField(
+      keyboardType: TextInputType.text,
+      icon: Icons.person,
+      hint: "Last Name",
+      textEditingController: lastNameController,
+    );
+  }
+
+  Widget emailTextFormField() {
+    TextEditingController emailController = TextEditingController(text: email);
+    return CustomTextField(
+      keyboardType: TextInputType.emailAddress,
+      icon: Icons.email,
+      hint: "Email ID",
+      textEditingController: emailController,
+    );
+  }
+
+  Widget phoneTextFormField() {
+    TextEditingController cellPhoneController = TextEditingController(text: phoneNumber);
+    return CustomTextField(
+      keyboardType: TextInputType.number,
+      icon: Icons.phone,
+      hint: "Mobile Number",
+      textEditingController: cellPhoneController,
+    );
+  }
+
+  Widget cityNameTextFormField() {
+    TextEditingController cityNameController = TextEditingController(text: cityName);
+    return CustomTextField(
+      keyboardType: TextInputType.text,
+      obscureText: true,
+      icon: Icons.location_on,
+      hint: "City Name",
+      textEditingController: cityNameController,
+    );
+  }
+
+  Widget jobTextFormField() {
+    TextEditingController jobController = TextEditingController(text: job);
+    return CustomTextField(
+      keyboardType: TextInputType.text,
+      icon: Icons.work,
+      hint: "Job",
+      textEditingController: jobController,
+    );
+  }
+
+
+  Widget intrestTextFormField() {
+    TextEditingController intrestController = TextEditingController(text: intrests);
+    return CustomTextField(
+      keyboardType: TextInputType.text,
+      icon: Icons.favorite,
+      hint: "Intrests in?",
+      textEditingController: intrestController,
+    );
+  }
+
+
+  Widget button() {
+    return RaisedButton(
+      elevation: 0,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+      onPressed: () {},
+      textColor: Colors.white,
+      padding: EdgeInsets.all(0.0),
+      child: Container(
+        alignment: Alignment.center,
+//        height: _height / 20,
+        width: _large ? _width / 4 : (_medium ? _width / 3.75 : _width / 3.5),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(20.0)),
+          gradient: LinearGradient(
+            colors: <Color>[Colors.orange[200], Colors.pinkAccent],
+          ),
+        ),
+        padding: const EdgeInsets.all(12.0),
+        child: Text('Save',
+          style: TextStyle(fontSize: _large ? 14 : (_medium ? 12 : 10)),),
+      ),
+    );
+  }
+
+
+  Widget signInTextRow() {
+    return Container(
+      margin: EdgeInsets.only(top: _height / 20.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            "Already have an account?",
+            style: TextStyle(fontWeight: FontWeight.w400),
+          ),
+          SizedBox(
+            width: 5,
+          ),
+          GestureDetector(
+            onTap: () {
+              print("Routing to Sign up screen");
+            },
+            child: Text(
+              "Sign in",
+              style: TextStyle(
+                  fontWeight: FontWeight.w800,
+                  color: Colors.orange[200],
+                  fontSize: 19),
+            ),
+          )
+        ],
+      ),
     );
   }
 }

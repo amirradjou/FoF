@@ -8,12 +8,12 @@ class Contacts{
   String _intrests;
   String _cityName;
   int _temperature;
-  String _weather_descriptions;
+  List<dynamic> _weather_descriptions;
 
   Contacts(this._id, this._firstName, this._lastName, this._cellPhone,
       this._email, this._job, this._intrests, this._cityName, this._temperature, this._weather_descriptions);
 
-  String get weather_descriptions => _weather_descriptions;
+  List<dynamic> get weather_descriptions => _weather_descriptions;
 
   int get temperature => _temperature;
 
