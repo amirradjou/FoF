@@ -241,21 +241,10 @@ _makePostRequest(firstName,lastName,cellPhone,cityName,email,job,intrest) async 
       '"city_name":"$cityName"}';
   Response response = await post(url,headers: headers ,body: json);
   int statusCode = response.statusCode;
-  print('------kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk-------------------');
   print(statusCode);
   print(userToken);
   String body = response.body;
   print(response.body);
-
-//  print(statusCode);
-//  print("---------------------------------------------------");
-//  print(firstName);
-//  print(lastName);
-//  print(cellPhone);
-//  print(email);
-//  print(password);
-//  print(job);
-//  print("---------------------------------------------------");
 
 }
 

@@ -115,24 +115,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
               child: Icon(Icons.add_a_photo, size: _large? 40: (_medium? 33: 31),color: Colors.orange[200],)),
         ),
-//        Positioned(
-//          top: _height/8,
-//          left: _width/1.75,
-//          child: Container(
-//            alignment: Alignment.center,
-//            height: _height/23,
-//            padding: EdgeInsets.all(5),
-//            decoration: BoxDecoration(
-//              shape: BoxShape.circle,
-//              color:  Colors.orange[100],
-//            ),
-//            child: GestureDetector(
-//                onTap: (){
-//                  print('Adding photo');
-//                },
-//                child: Icon(Icons.add_a_photo, size: _large? 22: (_medium? 15: 13),)),
-//          ),
-//        ),
       ],
     );
   }
@@ -367,16 +349,6 @@ _makePostRequest(firstName,lastName,cellPhone,password,email,job) async {
   int statusCode = response.statusCode;
   String body = response.body;
   print(response.body);
-
-//  print(statusCode);
-//  print("---------------------------------------------------");
-//  print(firstName);
-//  print(lastName);
-//  print(cellPhone);
-//  print(email);
-//  print(password);
-//  print(job);
-//  print("---------------------------------------------------");
 
 }
 

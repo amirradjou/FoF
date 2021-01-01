@@ -94,7 +94,6 @@ class MyHome extends StatelessWidget {
         var weather = c['geo_info']['current'];
         print(c['geo_info']['current']['weather_descriptions'].toString());
         _contacts.add(contactItem);
-        print('amirrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrima');
       }
 
   }

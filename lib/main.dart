@@ -31,11 +31,8 @@ class _FofState extends State<Fof> {
 
   @override
   Widget build(BuildContext context) {
-    print('*-*--*-**--**--*-*-*-*-*-*');
-//    print(mySecureKey);
     print(userToken);
-    print('*-*--*-**--**--*-*-*-*-*-*');
-    if(/*mySecureKey == null*/ userToken == ''){
+    if(userToken == ''){
       return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: SignInPage()
@@ -49,11 +46,3 @@ class _FofState extends State<Fof> {
     }
   }
 }
-
-//Future<void> getSecureKey() async {
-//  final String mySecureKey = await loginToken.read(key: 'login');
-//  print('in function***************************************');
-//  print(mySecureKey);
-
-//  return mySecureKey;
-//}
