@@ -56,9 +56,9 @@ class MyHome extends StatelessWidget {
                         return ListTile(
                           title: Text('${_contacts[index].firstName}'),
                           subtitle: Text('${_contacts[index].cellPhone}'),
-                          leading: CircleAvatar(),
+                          leading: CircleAvatar(backgroundColor: Colors.redAccent,),
                           onTap: (){
-                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>
+                            Navigator.push(context, MaterialPageRoute(builder: (context) =>
                                 ContactView(
                                     _contacts[index].firstName,
                                     _contacts[index].cellPhone,

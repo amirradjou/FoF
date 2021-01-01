@@ -1,6 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/ui/widgets/custom_shape.dart';
 import 'package:flutter_app/ui/widgets/customappbar.dart';
 import 'package:flutter_app/ui/widgets/responsive_ui.dart';
 import 'package:flutter_app/ui/widgets/textformfield.dart';
@@ -24,7 +25,7 @@ class ContactView extends StatelessWidget {
       int temperature, List<dynamic> weatherDescriptions) {
 
     this.firstName = firstName;
-    this.phoneNumber = phoneNumber;
+    this.phoneNumber = cellPhone;
     this.lastName = lastName;
     this.email = email;
     this.job = job;
@@ -72,6 +73,7 @@ class ContactView extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 Opacity(opacity: 0.50, child: CustomAppBar()),
+                clipShape(),
                 form(),
                 SizedBox(height: _height / 35,),
                 button(),
@@ -240,4 +242,79 @@ class ContactView extends StatelessWidget {
       ),
     );
   }
+
+  Widget clipShape() {
+    return Stack(
+      children: <Widget>[
+        Opacity(
+          opacity: 0.75,
+          child: ClipPath(
+            clipper: CustomShapeClipper(),
+            child: Container(
+              height: _large? _height/8 : (_medium? _height/7 : _height/6.5),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Colors.orange[200], Colors.pinkAccent],
+                ),
+              ),
+            ),
+          ),
+        ),
+        Opacity(
+          opacity: 0.5,
+          child: ClipPath(
+            clipper: CustomShapeClipper2(),
+            child: Container(
+              height: _large? _height/12 : (_medium? _height/11 : _height/10),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Colors.orange[200], Colors.pinkAccent],
+                ),
+              ),
+            ),
+          ),
+        ),
+        Container(
+          height: _height / 5.5,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                  spreadRadius: 0.0,
+                  color: Colors.black26,
+                  offset: Offset(1.0, 10.0),
+                  blurRadius: 20.0),
+            ],
+            color: Colors.white,
+            shape: BoxShape.circle,
+          ),
+          child: GestureDetector(
+              onTap: (){
+                print('Adding photo');
+              },
+
+              child: Icon(Icons.cloud, size: 70,color: Colors.orange[200],)),
+        ),
+//        Positioned(
+//          top: _height/8,
+//          left: _width/1.75,
+//          child: Container(
+//            alignment: Alignment.center,
+//            height: _height/23,
+//            padding: EdgeInsets.all(5),
+//            decoration: BoxDecoration(
+//              shape: BoxShape.circle,
+//              color:  Colors.orange[100],
+//            ),
+//            child: GestureDetector(
+//                onTap: (){
+//                  print('Adding photo');
+//                },
+//                child: Icon(Icons.add_a_photo, size: _large? 22: (_medium? 15: 13),)),
+//          ),
+//        ),
+      ],
+    );
+  }
+
 }
