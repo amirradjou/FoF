@@ -1,6 +1,6 @@
-# flutter_app
+# FoF(Friends of Friends)
 
-A new Flutter application.
+FoF is a Phonebook written by flutter that can show your friends contacts(if they are using FoF too).
 
 ## Getting Started
 
